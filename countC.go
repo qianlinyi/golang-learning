@@ -13,17 +13,12 @@ type a struct {
 // 全小写的字符串，统计每个字母出现的次数，按出现次数由大到小排序，输出排序结果
 func Sort(s string) []a {
 	m := make([]a, 0)
-	vis := make(map[string]int)
-	for _, c := range s {
-		_, ok := vis[string(c)]
-		if ok {
-			vis[string(c)] += 1
-		} else {
-			vis[string(c)] = 1
-		}
+	vis := make(map[byte]int)
+	for i := range s {
+		vis[s[i]]++
 	}
 	for k, v := range vis {
-		m = append(m, a{k, v})
+		m = append(m, a{string(k), v})
 	}
 	sort.Slice(m, func(i, j int) bool {
 		return m[i].cnt > m[j].cnt
